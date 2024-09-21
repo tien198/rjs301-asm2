@@ -1,12 +1,14 @@
 import React from 'react';
 import Navbar from '../../components/layout/Navbar';
+import Banner from '../../components/layout/Banner';
 
 function Browse() {
 	return (
 		<div className="app">
 			<Navbar />
-			<div className='h-screen'></div>
-			<div className='h-screen'></div>
+			<Banner />
+			{/* <div className='h-screen'></div> */}
+			{/* <div className='h-screen'></div> */}
 		</div>
 	);
 }
