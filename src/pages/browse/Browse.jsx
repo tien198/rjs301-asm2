@@ -7,8 +7,8 @@ function Browse() {
 		<div className="app">
 			<Navbar />
 			<Banner />
-			<div className='h-screen bg-zinc-900'></div>
-			<div className='h-screen bg-zinc-900'></div>
+			<div className='h-screen bg-zinc-900 opacity-80'></div>
+			<div className='h-screen bg-zinc-900 opacity-80'></div>
 		</div>
 	);
 }

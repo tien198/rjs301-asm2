@@ -55,8 +55,10 @@ function useFetchBanner() {
     function setBanner(imgSrc, title, description) {
         setImgSrc(imgSrc)
         setTitle(title)
-        if (description.length >= 130)
+        if (description.length > 130)
             setDescription(description.slice(0, 130) + ' ...')
+        else
+            setDescription(description)
     }
     useEffect(() => {
         async function createBanner() {
