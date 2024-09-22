@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 function Navbar() {
     const { bgColor, nav } = useScrollDown()
     return (
-        <nav ref={nav} className={`flex justify-between px-9 py-5 fixed w-full text-white duration-500 ${bgColor}`}>
+        <nav ref={nav} className={`flex justify-between px-4 py-5 fixed w-full text-white duration-500 ${bgColor}`}>
             <Link to='/'>
-                <h1 className='font-semibold text-red-700'>Movie App</h1>
+                <h1 className='font-semibold text-xl text-main'>Movie App</h1>
             </Link>
             <Link to='/search'>
                 <FontAwesomeIcon icon={faMagnifyingGlass} />

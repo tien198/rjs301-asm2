@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+	--main-color: #FF0000
+}
+
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -9,6 +13,7 @@ body {
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	box-sizing: border-box;
 }
 
 code {
@@ -16,6 +21,28 @@ code {
 		monospace;
 }
 
-.h-1\/2vh {
+
+.text-main {
+	color: var(--main-color)
+}
+
+/* size */
+.h-5\/10vh {
 	height: 50vh;
+}
+
+.h-6\/10vh {
+	height: 60vh;
+}
+
+.h-7\/10vh {
+	height: 70vh;
+}
+
+@media (min-width: 768px) {
+
+	/* size */
+	.md\:h-5\/10vh {
+		height: 50vh;
+	}
 }
