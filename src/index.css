@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-	--main-color: #FF0000
+	--main-red-color: #FF0000;
+	--main-black-color: #111111;
 }
 
 body {
@@ -23,7 +24,11 @@ code {
 
 
 .text-main {
-	color: var(--main-color)
+	color: var(--main-red-color);
+}
+
+.bg-main {
+	background-color: var(--main-black-color);
 }
 
 /* size */

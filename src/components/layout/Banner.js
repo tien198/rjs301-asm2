@@ -4,7 +4,7 @@ import { BannerInfo } from '../../models/BannerInfo';
 
 const bannerInfo = new BannerInfo()
 
-function Banner() {
+export default function Banner() {
     // internal custom hook (defined below in this file)
     const { imgSrc, title, description } = useFetchBanner()
     return (
@@ -14,15 +14,12 @@ function Banner() {
     );
 }
 
-export default Banner;
-
-
 function ImgBackground({ imgUrl, alt, children, ...props }) {
     return (
         <div>
             <img src={imgUrl} alt={alt}
                 className='w-full h-full absolute -z-50 object-cover' />
-            <div className='flex flex-col-reverse bg-transparent px-6 py-4 text-white h-7/10vh md:h-5/10vh '>
+            <div className='flex flex-col-reverse bg-transparent text-white h-7/10vh md:h-5/10vh '>
                 {children}
             </div>
         </div>
@@ -32,9 +29,13 @@ function ImgBackground({ imgUrl, alt, children, ...props }) {
 function BannerContents({ title, description }) {
     return (
         <>
-            <div>
-                <h3 className='font-extrabold text-3xl'>{title}</h3>
-                <p>{description}</p>
+            <div className='px-6 py-12'>
+                <h3 className='font-extrabold text-3xl pb-7'>{title}</h3>
+                <div className='flex gap-4 pb-2'>
+                    <BannerButton>Play</BannerButton>
+                    <BannerButton>My List</BannerButton>
+                </div>
+                <p className='max-w-96 text-sm font-semibold leading-4'>{description}</p>
             </div>
         </>
     )
@@ -42,7 +43,7 @@ function BannerContents({ title, description }) {
 
 function BannerButton({ children }) {
     return (
-        <button className='rounded-sm '>
+        <button className='rounded bg-zinc-900 opacity-80 font-semibold px-7 py-1'>
             {children}
         </button>
     )
@@ -69,6 +70,8 @@ function useFetchBanner() {
             const imgUrl = generateImgUrl_Origin(imgPath)
 
             bannerInfo.init(imgUrl, title, description)
+
+            console.log(movieBanner);
 
 
             setBanner(imgUrl, title, description)

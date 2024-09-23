@@ -1,12 +1,14 @@
 import React from 'react';
 import Navbar from '../../components/layout/Navbar';
 import Banner from '../../components/layout/Banner';
+import MovieList from '../../components/layout/MovieList';
 
 function Browse() {
 	return (
-		<div className="app">
+		<div>
 			<Navbar />
 			<Banner />
+			<BodyPage />
 			<div className='h-screen bg-zinc-900 opacity-80'></div>
 			<div className='h-screen bg-zinc-900 opacity-80'></div>
 		</div>
@@ -15,3 +17,10 @@ function Browse() {
 
 export default Browse;
 
+function BodyPage() {
+	return (
+		<>
+			<MovieList />
+		</>
+	)
+}
