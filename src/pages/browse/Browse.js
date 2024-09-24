@@ -5,45 +5,23 @@ import MovieList from '../../components/layout/MovieList';
 import { OriginalListProvider } from '../../store/original-list-context';
 import { generateImgUrl_Origin, getOriginalList } from '../../ulti/http';
 import { BannerInfo } from '../../models/BannerInfo';
+import useFetchMovieList from '../../hooks/useFetchMovieList';
 
-const bannerInfo = new BannerInfo()
+// store inital info (description) to expand when user click on '...'
+const globleBannerInfo = new BannerInfo()
 
 export default function Browse() {
-	const [originalList, setOriginalList] = useState([])
-	const [bannerInfor, setBannerInfor] = useState({})
-	useEffect(() => {
-		(async function () {
-			const list = (await getOriginalList())['results']
-			setOriginalList(list)
-		})()
-	}, [])
+	const { list: originalList } = useFetchMovieList([], getOriginalList)
 
-	useEffect(() => {
-		function randomIndex(length) {
-			return Math.floor(Math.random() * length - 1)
-		}
-		console.log(originalList);
+	// <internal custom hooks>
+	// bannerInfo is get random from (based on) 'originalList'  
+	const { bannerInfo } = useGetBannerInfo(originalList)
 
-		if (originalList.length > 0) {
-			const { backdrop_path, name, overview } =
-				originalList[randomIndex(originalList.length)]
-			// const info = new BannerInfo()
-			const imgUrl = generateImgUrl_Origin(backdrop_path)
-			bannerInfo.init(imgUrl, name, overview)
-			let description = ''
-			if (bannerInfo.length > 130)
-				description = bannerInfo.description.slice(0, 130) + ' ...'
-			else
-				description = bannerInfo.description
-
-			setBannerInfor({ ...bannerInfo, description: description })
-		}
-	}, [originalList])
 	return (
 		<>
 			<Navbar />
 			<ContextAggregate>
-				<Banner {...bannerInfor} />
+				<Banner {...bannerInfo} />
 				<BodyPage />
 				<div className='h-screen bg-zinc-900 opacity-80'></div>
 				<div className='h-screen bg-zinc-900 opacity-80'></div>
@@ -51,6 +29,43 @@ export default function Browse() {
 		</>
 	);
 }
+
+// <internal custom hooks> ---------------------------------------
+// bannerInfo is get random from (based on) 'originalList'  
+function useGetBannerInfo(originalList) {
+	const [bannerInfo, setBannerInfo] = useState({})
+	useEffect(() => {
+		function randomIndex(length) {
+			return Math.floor(Math.random() * length - 1)
+		}
+		// collape to '...' if description is too long
+		function sliceDescription(description) {
+
+			if (description.length > 130)
+				return description.slice(0, 130) + ' ...'
+			else
+				return description
+		}
+
+
+		if (originalList.length > 0) {
+			const { backdrop_path, name, overview } =
+				originalList[randomIndex(originalList.length)]
+
+			const imgUrl = generateImgUrl_Origin(backdrop_path)
+			globleBannerInfo.init(imgUrl, name, overview)
+			const description = sliceDescription(overview)
+
+			setBannerInfo({ ...globleBannerInfo, description: description })
+		}
+	}, [originalList])
+
+	return {
+		bannerInfo, setBannerInfo
+	}
+}
+
+// <internal components> ---------------------------------------
 
 function ContextAggregate({ children }) {
 	return (
