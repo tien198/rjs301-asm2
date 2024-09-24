@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { generateImgUrl_Origin, getBanner } from '../../ulti/http';
-import { BannerInfo } from '../../models/BannerInfo';
+import React from 'react';
 
-const bannerInfo = new BannerInfo()
+// css
+import styles from './Banner.module.css'
 
-export default function Banner() {
-    // internal custom hook (defined below in this file)
-    const { imgSrc, title, description } = useFetchBanner()
+export default function Banner({ imgSrc, title, description }) {
+    // if (!imgSrc) imgSrc = ''
+    // if (!title) title = ''
+    // if (!description) description = ''
     return (
         <ImgBackground imgUrl={imgSrc} alt={title} >
             <BannerContents title={title} description={description} />
@@ -19,7 +19,7 @@ function ImgBackground({ imgUrl, alt, children, ...props }) {
         <div>
             <img src={imgUrl} alt={alt}
                 className='w-full h-full absolute -z-50 object-cover' />
-            <div className='flex flex-col-reverse bg-transparent text-white h-7/10vh md:h-5/10vh '>
+            <div className={styles['banner']}>
                 {children}
             </div>
         </div>
@@ -49,40 +49,39 @@ function BannerButton({ children }) {
     )
 }
 
-function useFetchBanner() {
-    const [imgSrc, setImgSrc] = useState('')
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    function setBanner(imgSrc, title, description) {
-        setImgSrc(imgSrc)
-        setTitle(title)
-        if (description.length > 130)
-            setDescription(description.slice(0, 130) + ' ...')
-        else
-            setDescription(description)
-    }
-    useEffect(() => {
-        async function createBanner() {
-            const movieBanner = await getBanner()
-            const { backdrop_path: imgPath,
-                name: title,
-                overview: description } = movieBanner
-            const imgUrl = generateImgUrl_Origin(imgPath)
+// function useFetchBanner() {
+//     const [imgSrc, setImgSrc] = useState('')
+//     const [title, setTitle] = useState('')
+//     const [description, setDescription] = useState('')
+//     function setBanner(imgSrc, title, description) {
+//         setImgSrc(imgSrc)
+//         setTitle(title)
+//         if (description.length > 130)
+//             setDescription(description.slice(0, 130) + ' ...')
+//         else
+//             setDescription(description)
+//     }
+//     useEffect(() => {
+//         async function createBanner() {
+//             const movieBanner = await getBanner()
+//             const { backdrop_path: imgPath,
+//                 name: title,
+//                 overview: description } = movieBanner
+//             const imgUrl = generateImgUrl_Origin(imgPath)
 
-            bannerInfo.init(imgUrl, title, description)
+//             bannerInfo.init(imgUrl, title, description)
 
-            console.log(movieBanner);
+//             console.log(bannerInfo);
 
+//             setBanner(imgUrl, title, description)
+//         }
+//         createBanner()
 
-            setBanner(imgUrl, title, description)
-        }
-        createBanner()
+//     }, [])
 
-    }, [])
-
-    return {
-        imgSrc,
-        title,
-        description
-    }
-}
+//     return {
+//         imgSrc,
+//         title,
+//         description
+//     }
+// }

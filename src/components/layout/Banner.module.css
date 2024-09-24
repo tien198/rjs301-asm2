@@ -1,0 +1,13 @@
+.banner {
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: transparent;
+    color: white;
+    height: 70vh;
+}
+
+@media (min-width:768px) {
+    .banner {
+        height: 326px;
+    }
+}

@@ -4,7 +4,7 @@ const BASE_URL = 'https://api.themoviedb.org/3'
 const IMG_URL_ORIGIN = 'https://image.tmdb.org/t/p/original'
 const IMG_URL_W500 = 'https://image.tmdb.org/t/p/w500'
 
-export const requests = {
+export const requestsList = {
     fetchTrending: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
     fetchNetflixOriginals: `/discover/tv?api_key=${API_KEY}&with_network=123`,
     fetchTopRated: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
@@ -16,17 +16,6 @@ export const requests = {
     fetchSearch: `/search/movie?api_key=${API_KEY}&language=en-US`,
 };
 
-// Get random from 20 movie results through 'fetchNetflixOriginals'
-export async function getBanner() {
-    const data = await getData(BASE_URL + requests.fetchNetflixOriginals)
-
-    const results = data['results']
-
-    const randomResult = results[randomInt(results.length)]
-
-    return randomResult
-}
-
 export function generateImgUrl_Origin(path) {
     return IMG_URL_ORIGIN + path
 }
@@ -35,11 +24,17 @@ export function generateImgUrl_W500(path) {
     return IMG_URL_W500 + path
 }
 
-async function getData(url) {
+// Get random from 20 movie results through 'fetchNetflixOriginals'
+// export async function getRandomData(dataArr) {
+//     return dataArr[randomInt(dataArr.length)]
+// }
+
+export async function getData(url) {
     const res = await fetch(url)
     return await res.json()
 }
 
-function randomInt(max) {
-    return Math.floor(Math.random() * max - 1)
+export async function getOriginalList() {
+    const url = BASE_URL + requestsList.fetchNetflixOriginals
+    return await getData(url)
 }

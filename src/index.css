@@ -47,6 +47,14 @@ code {
 @media (min-width: 768px) {
 
 	/* size */
+	.md\:h-3\/10vh {
+		height: 30vh;
+	}
+
+	.md\:h-4\/10vh {
+		height: 40vh;
+	}
+
 	.md\:h-5\/10vh {
 		height: 50vh;
 	}
