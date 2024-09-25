@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Navbar from '../../components/layout/Navbar';
 import Banner from '../../components/layout/Banner';
 import MovieList from '../../components/layout/MovieList';
-import { OriginalListProvider } from '../../store/original-list-context';
+import { OriginalListContext, OriginalListProvider } from '../../store/original-list-context';
 import { generateImgUrl_Origin, getOriginalList } from '../../ulti/http';
 import { BannerInfo } from '../../models/BannerInfo';
 import useFetchMovieList from '../../hooks/useFetchMovieList';
@@ -76,9 +76,10 @@ function ContextAggregate({ children }) {
 }
 
 function BodyPage() {
+	const { list: originalList } = useContext(OriginalListContext)
 	return (
 		<>
-			<MovieList />
+			<MovieList list={originalList} landScape={true} />
 		</>
 	)
 }

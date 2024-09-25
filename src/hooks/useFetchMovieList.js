@@ -7,8 +7,13 @@ export default function useFetchMovieList(initialVal, fetchedFunc) {
     const [list, setList] = useState(initialVal)
     useEffect(() => {
         (async function () {
-            const res = (await fetchedFunc())['results']
-            setList(res)
+            try {
+                const res = (await fetchedFunc())['results']
+                setList(res)
+            }
+            catch (err) {
+                console.warn(err.message)
+            }
         })()
     }, [fetchedFunc])
 
