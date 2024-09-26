@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Navbar from '../../components/layout/Navbar';
 import Banner from '../../components/layout/Banner';
 import MovieList from '../../components/layout/MovieList';
-import { OriginalListContext, OriginalListProvider } from '../../store/original-list-context';
+import { MovieListListContext, MovieListProvider } from '../../store/movies-list-context';
 import { generateImgUrl_Origin, getOriginalList } from '../../ulti/http';
 import { BannerInfo } from '../../models/BannerInfo';
 import useFetchMovieList from '../../hooks/useFetchMovieList';
@@ -23,14 +23,14 @@ export default function Browse() {
 
 function ContextAggregate({ children }) {
 	return (
-		<OriginalListProvider>
+		<MovieListProvider>
 			{children}
-		</OriginalListProvider>
+		</MovieListProvider>
 	)
 }
 
 function Page() {
-	const { list: originalList } = useFetchMovieList(OriginalListContext, getOriginalList)
+	const { list: originalList } = useFetchMovieList(MovieListListContext, getOriginalList)
 
 	// <internal custom hooks>
 	// bannerInfo is get random from (based on) 'originalList'  
@@ -48,7 +48,7 @@ function Page() {
 }
 
 function BodyPage() {
-	const { list: originalList } = useContext(OriginalListContext)
+	const { list: originalList } = useContext(MovieListListContext)
 
 	return (
 		<>
