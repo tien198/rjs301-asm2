@@ -55,7 +55,7 @@ export async function getActionMoviesList() {
     return await getData(url)
 }
 
-export async function getfetchComedyMoviesList() {
+export async function getComedyMoviesList() {
     const url = BASE_URL + requestsList.fetchComedyMovies
     return await getData(url)
 }

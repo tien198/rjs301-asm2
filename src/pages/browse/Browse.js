@@ -5,7 +5,8 @@ import MovieList from '../../components/layout/MovieList';
 import { MovieListListContext, MovieListProvider } from '../../store/movies-list-context';
 import { generateImgUrl_Origin, getOriginalList } from '../../ulti/http';
 import { BannerInfo } from '../../models/BannerInfo';
-import useFetchMovieList from '../../hooks/useFetchMovieList';
+import { useFetchMovieListWithContext } from '../../hooks/useFetchMovieList';
+import { ActionMoviesCategory, ComedyMoviesCategory, DocumentariesCategory, HorrorMoviesCategory, RomanceMoviesCategory, TopRatedCategory, TrendingCategory } from '../../components/layout/BrowseCategory';
 
 // store inital info (description) to expand when user click on '...'
 const globleBannerInfo = new BannerInfo()
@@ -13,24 +14,17 @@ const globleBannerInfo = new BannerInfo()
 export default function Browse() {
 
 	return (
-		<ContextAggregate>
+		<MovieListProvider>
 			<Page />
-		</ContextAggregate>
+			<div className='h-36 bg-main'></div>
+		</MovieListProvider>
 	);
 }
 
 // <internal components> ---------------------------------------
 
-function ContextAggregate({ children }) {
-	return (
-		<MovieListProvider>
-			{children}
-		</MovieListProvider>
-	)
-}
-
 function Page() {
-	const { list: originalList } = useFetchMovieList(MovieListListContext, getOriginalList)
+	const { list: originalList } = useFetchMovieListWithContext(getOriginalList, MovieListListContext)
 
 	// <internal custom hooks>
 	// bannerInfo is get random from (based on) 'originalList'  
@@ -40,19 +34,24 @@ function Page() {
 		<>
 			<Navbar />
 			<Banner {...bannerInfo} />
-			<BodyPage />
-			<div className='h-screen bg-zinc-900 opacity-80'></div>
-			<div className='h-screen bg-zinc-900 opacity-80'></div>
+			<CategoriesGallery />
 		</>
 	)
 }
 
-function BodyPage() {
+function CategoriesGallery() {
 	const { list: originalList } = useContext(MovieListListContext)
 
 	return (
 		<>
-			<MovieList list={originalList} landScape={true} />
+			<MovieList list={originalList} landScape={false} />
+			<TrendingCategory />
+			<TopRatedCategory />
+			<ActionMoviesCategory />
+			<ComedyMoviesCategory />
+			<HorrorMoviesCategory />
+			<RomanceMoviesCategory />
+			<DocumentariesCategory />
 		</>
 	)
 }
