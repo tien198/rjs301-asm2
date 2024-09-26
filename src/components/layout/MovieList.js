@@ -2,14 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { generateImgUrl_Origin } from '../../ulti/http';
 
-export default function MovieList({ list, landScape = true }) {
+export default function MovieList({ list, category, landScape = true }) {
     const imgSizeClass = landScape ?
-        'h-44 w-32' :
+        'h-64 w-44 object-cover' :
         'h-24 w-52 '
 
     return (
-        <div className='w-full  overflow-y-auto'>
-            <div className='bg-main text-white px-6 pt-8 pb-10 flex gap-4 w-max'>
+        <div className='w-full overflow-y-auto'>
+            {category && <h4>{category}</h4>}
+            <div className='bg-main text-white px-10 pt-10 pb-16 flex gap-4 w-max'>
                 {
                     list.map(i => {
                         return <MovieItem movie={i} sizeClassName={imgSizeClass} key={i.id} />

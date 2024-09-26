@@ -11,3 +11,9 @@
         height: 326px;
     }
 }
+
+@media (min-width:1024px) {
+    .banner {
+        height: 40vh;
+    }
+}

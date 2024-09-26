@@ -57,7 +57,6 @@ function BodyPage() {
 	)
 }
 
-
 // <internal custom hooks> ---------------------------------------
 // bannerInfo is get random from (based on) 'originalList'  
 function useGetBannerInfo(originalList) {

@@ -38,3 +38,44 @@ export async function getOriginalList() {
     const url = BASE_URL + requestsList.fetchNetflixOriginals
     return await getData(url)
 }
+
+export async function getTrendingList() {
+    const url = BASE_URL + requestsList.fetchTrending
+    return await getData(url)
+}
+
+
+export async function getTopRatedList() {
+    const url = BASE_URL + requestsList.fetchTopRated
+    return await getData(url)
+}
+
+export async function getActionMoviesList() {
+    const url = BASE_URL + requestsList.fetchActionMovies
+    return await getData(url)
+}
+
+export async function getfetchComedyMoviesList() {
+    const url = BASE_URL + requestsList.fetchComedyMovies
+    return await getData(url)
+}
+
+export async function getHorrorMoviesList() {
+    const url = BASE_URL + requestsList.fetchHorrorMovies
+    return await getData(url)
+}
+
+export async function getRomanceMoviesList() {
+    const url = BASE_URL + requestsList.fetchRomanceMovies
+    return await getData(url)
+}
+
+export async function getDocumentariesList() {
+    const url = BASE_URL + requestsList.fetchDocumentaries
+    return await getData(url)
+}
+
+export async function getSearchList() {
+    const url = BASE_URL + requestsList.fetchSearch
+    return await getData(url)
+}
