@@ -24,31 +24,36 @@ function MovieItem({ movie, isLandscape }) {
         'h-36 w-72 object-cover' :
         'h-64 w-44 object-cover'
     const { id = '', name = '', poster_path = '' } = movie
-    const imgSrcInitVal = isLandscape ?
-        generateImgUrl_W500(poster_path) :
-        generateImgUrl_Origin(poster_path)
-    const blurClassInit = isLandscape ? ' blur' : ''
-    const [imgSrc, setImgSrc] = useState(imgSrcInitVal)
-    const [blurClass, setBlurClass] = useState(blurClassInit)
+
+    const [imgSrc, setImgSrc] = useState(generateImgUrl_W500(poster_path))
+    const [blurClass, setBlurClass] = useState(isLandscape ? ' blur' : '')
 
     const imgRef = useRef()
     useEffect(() => {
         const imgRectY = imgRef.current.getBoundingClientRect().top
+
+        if (window.scrollY >= imgRectY - (document.documentElement.clientHeight)) {
+            setImgSrc(generateImgUrl_Origin(poster_path))
+
+            imgRef.current.addEventListener('load', e => {
+                setBlurClass('')
+            })
+        }
+
+        window.addEventListener('scroll', event)
         function event(e) {
             if (window.scrollY >= imgRectY - (document.documentElement.clientHeight)) {
                 setImgSrc(generateImgUrl_Origin(poster_path))
+
+                imgRef.current.addEventListener('load', e => {
+                    setBlurClass('')
+                })
+
                 window.removeEventListener('scroll', event)
             }
         }
-        window.addEventListener('scroll', event)
     }, [])
 
-    useEffect(() => {
-        function loaded(e) {
-            setBlurClass('')
-        }
-        imgRef.current.addEventListener('load', loaded)
-    }, [])
     return (
         <Link to={`/`}>
             <img ref={imgRef} src={imgSrc} alt={name} className={imgSizeClass + blurClass} />
