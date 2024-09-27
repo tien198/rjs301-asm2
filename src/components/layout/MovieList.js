@@ -1,11 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { generateImgUrl_Origin } from '../../ulti/http';
+import { generateImgUrl_Origin, generateImgUrl_W500 } from '../../ulti/http';
 
 export default function MovieList({ list, category, landScape = true }) {
-    const imgSizeClass = landScape ?
-        'h-36 w-72 object-cover' :
-        'h-64 w-44 object-cover'
 
     return (
         // <div className='w-full bg-main text-white overflow-y-auto '>
@@ -14,7 +11,7 @@ export default function MovieList({ list, category, landScape = true }) {
             <div className='flex gap-4 w-max'>
                 {
                     list.map(i => {
-                        return <MovieItem movie={i} sizeClassName={imgSizeClass} key={i.id} />
+                        return <MovieItem movie={i} isLandscape={landScape} key={i.id} />
                     })
                 }
             </div>
@@ -22,12 +19,39 @@ export default function MovieList({ list, category, landScape = true }) {
     );
 }
 
-function MovieItem({ movie, sizeClassName }) {
+function MovieItem({ movie, isLandscape }) {
+    const imgSizeClass = isLandscape ?
+        'h-36 w-72 object-cover' :
+        'h-64 w-44 object-cover'
     const { id = '', name = '', poster_path = '' } = movie
-    const imgSrc = generateImgUrl_Origin(poster_path)
+    const imgSrcInitVal = isLandscape ?
+        generateImgUrl_W500(poster_path) :
+        generateImgUrl_Origin(poster_path)
+    const blurClassInit = isLandscape ? ' blur' : ''
+    const [imgSrc, setImgSrc] = useState(imgSrcInitVal)
+    const [blurClass, setBlurClass] = useState(blurClassInit)
+
+    const imgRef = useRef()
+    useEffect(() => {
+        const imgRectY = imgRef.current.getBoundingClientRect().top
+        function event(e) {
+            if (window.scrollY >= imgRectY - (document.documentElement.clientHeight)) {
+                setImgSrc(generateImgUrl_Origin(poster_path))
+                window.removeEventListener('scroll', event)
+            }
+        }
+        window.addEventListener('scroll', event)
+    }, [])
+
+    useEffect(() => {
+        function loaded(e) {
+            setBlurClass('')
+        }
+        imgRef.current.addEventListener('load', loaded)
+    }, [])
     return (
         <Link to={`/`}>
-            <img src={imgSrc} alt={name} className={sizeClassName} />
+            <img ref={imgRef} src={imgSrc} alt={name} className={imgSizeClass + blurClass} />
         </Link>
     )
 }
