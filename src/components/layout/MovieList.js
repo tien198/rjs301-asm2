@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { generateImgUrl_Origin, generateImgUrl_W500 } from '../../ulti/http';
 
+import styles from './MovieList.module.css'
+
 export default function MovieList({ list, category, landScape = true }) {
 
     return (
         // <div className='w-full bg-main text-white px-10 pt-10 pb-16 overflow-y-clip '>
-        <div className='w-full bg-main text-white px-10 pt-10 pb-16 overflow-y-auto '>
+        <div className={`w-full bg-main text-white px-10 pt-10 pb-16 overflow-y-auto ${styles['scroll-bar']}`}>
             {category && <h4 className='font-semibold text-2xl -mx-5 mb-6'>{category}</h4>}
             <div className='flex gap-4 w-max'>
                 {
