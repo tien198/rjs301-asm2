@@ -59,3 +59,19 @@ code {
 		height: 50vh;
 	}
 }
+
+
+::-webkit-scrollbar {
+	width: 4px;
+	height: 4px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: #292929;
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #11171A;
+	border-radius: 10px;
+}

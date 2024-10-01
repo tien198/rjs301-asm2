@@ -8,14 +8,17 @@ export default function MovieList({ list, category, landScape = true }) {
 
     return (
         // <div className='w-full bg-main text-white px-10 pt-10 pb-16 overflow-y-clip '>
-        <div className={`w-full bg-main text-white px-10 pt-10 pb-16 overflow-y-auto ${styles['scroll-bar']}`}>
-            {category && <h4 className='font-semibold text-2xl -mx-5 mb-6'>{category}</h4>}
-            <div className='flex gap-4 w-max'>
-                {
-                    list.map(i => {
-                        return <MovieItem movie={i} isLandscape={landScape} key={i.id} />
-                    })
-                }
+        <div className={`w-full bg-main text-white pt-10 `}>
+            {category && <h4 className='font-semibold text-2xl mb-6 px-10'>{category}</h4>}
+            <div className='px-10 pb-16 overflow-y-auto '>
+
+                <div className='flex gap-4 w-max'>
+                    {
+                        list.map(i => {
+                            return <MovieItem movie={i} isLandscape={landScape} key={i.id} />
+                        })
+                    }
+                </div>
             </div>
         </div>
     );
