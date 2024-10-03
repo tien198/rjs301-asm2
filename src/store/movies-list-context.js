@@ -14,13 +14,13 @@ export const MovieListContext = createContext({
 export function MovieListProvider({ children }) {
     const [list, setList] = useState([])
     const [activeItemIndex, setActiveItemIndex] = useState(0)
-    const [detailHeight, setDetailHEight] = useState('0px')
+    const [detailHeight, setDetailHeight] = useState('0px')
 
     function revealDetail() {
-        setDetailHEight('auto')
+        setDetailHeight('500px')
     }
     function hideDetail() {
-        setDetailHEight('0px')
+        setDetailHeight('0px')
     }
     const contextVals = {
         list, setList,

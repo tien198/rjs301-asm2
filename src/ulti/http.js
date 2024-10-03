@@ -34,6 +34,25 @@ export async function getData(url) {
     return await res.json()
 }
 
+export async function getTrailerKey(id) {
+    if (!id) return ''
+    const fetchTrailer = `/movie/${id}/videos?api_key=${API_KEY}`
+    try {
+        const trailerRes = await getData(BASE_URL + fetchTrailer)
+        // fetchTrailer > results[0] > key
+        const trailerKey = trailerRes['results'][0].key
+        return trailerKey
+    } catch (err) {
+        console.error('fail to get trailer Key ( Maybe Key property is not existed! )')
+    }
+    return ''
+}
+
+export async function generateYoutubeUrl(id) {
+    const key = await getTrailerKey(id) || ''
+    return `https://www.youtube.com/embed/${key}`
+}
+
 export async function getOriginalList() {
     const url = BASE_URL + requestsList.fetchNetflixOriginals
     return await getData(url)

@@ -12,37 +12,38 @@ import { useGetBannerInfo } from '../../components/layout/hooks/useGetBannerInfo
 export default function Browse() {
 
 	return (
-		<MovieListProvider>
-			<Page />
+		<>
+			<Navbar />
+			<BannerProvider />
+			<CategoriesGallery />
 			<div className='h-36 bg-main'></div>
-		</MovieListProvider>
+		</>
 	);
 }
 
 // <internal components> ---------------------------------------
-
-function Page() {
+function BannerProvider() {
+	return (
+		<MovieListProvider>
+			<BannerAndOriginalList />
+		</MovieListProvider>
+	)
+}
+function BannerAndOriginalList() {
 	const { list: originalList } = useFetchMovieListWithContext(getOriginalList, useContext(MovieListContext))
-
-	// <internal custom hooks>
 	// bannerInfo is get random from (based on) 'originalList'  
 	const { bannerInfo } = useGetBannerInfo(originalList)
-
 	return (
 		<>
-			<Navbar />
 			<Banner {...bannerInfo} />
-			<CategoriesGallery />
+			<MovieList list={originalList} landScape={false} movieDetail={false} />
 		</>
 	)
 }
 
 function CategoriesGallery() {
-	const { list: originalList } = useContext(MovieListContext)
-
 	return (
 		<>
-			<MovieList list={originalList} landScape={false} movieDetail={false} />
 			<MovieCategory title='Xu hướng' fetchFn={getTrendingList} />
 			<MovieCategory title='Xếp hạng cao' fetchFn={getTopRatedList} />
 			<MovieCategory title='Hành Động' fetchFn={getActionMoviesList} />
