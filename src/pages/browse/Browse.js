@@ -42,7 +42,7 @@ function CategoriesGallery() {
 
 	return (
 		<>
-			<MovieList list={originalList} landScape={false} />
+			<MovieList list={originalList} landScape={false} movieDetail={false} />
 			<MovieCategory title='Xu hướng' fetchFn={getTrendingList} />
 			<MovieCategory title='Xếp hạng cao' fetchFn={getTopRatedList} />
 			<MovieCategory title='Hành Động' fetchFn={getActionMoviesList} />
