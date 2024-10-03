@@ -2,14 +2,12 @@ import React, { useContext } from 'react';
 import Navbar from '../../components/layout/Navbar';
 import Banner from '../../components/layout/Banner';
 import MovieList from '../../components/layout/MovieList';
-import { MovieListListContext, MovieListProvider } from '../../store/movies-list-context';
-import { generateImgUrl_Origin, getOriginalList } from '../../ulti/http';
-import { BannerInfo } from '../../models/BannerInfo';
+import { MovieListContext, MovieListProvider } from '../../store/movies-list-context';
+import { getActionMoviesList, getComedyMoviesList, getDocumentariesList, getHorrorMoviesList, getOriginalList, getRomanceMoviesList, getTopRatedList, getTrendingList } from '../../ulti/http';
 import { useFetchMovieListWithContext } from '../../hooks/useFetchMovieList';
-import { ActionMoviesCategory, ComedyMoviesCategory, DocumentariesCategory, HorrorMoviesCategory, RomanceMoviesCategory, TopRatedCategory, TrendingCategory } from '../../components/layout/BrowseCategory';
+import { MovieCategory } from '../../components/layout/MovieCategory';
+import { useGetBannerInfo } from '../../components/layout/hooks/useGetBannerInfo';
 
-// store inital info (description) to expand when user click on '...'
-const globleBannerInfo = new BannerInfo()
 
 export default function Browse() {
 
@@ -24,7 +22,7 @@ export default function Browse() {
 // <internal components> ---------------------------------------
 
 function Page() {
-	const { list: originalList } = useFetchMovieListWithContext(getOriginalList, MovieListListContext)
+	const { list: originalList } = useFetchMovieListWithContext(getOriginalList, useContext(MovieListContext))
 
 	// <internal custom hooks>
 	// bannerInfo is get random from (based on) 'originalList'  
@@ -40,52 +38,18 @@ function Page() {
 }
 
 function CategoriesGallery() {
-	const { list: originalList } = useContext(MovieListListContext)
+	const { list: originalList } = useContext(MovieListContext)
 
 	return (
 		<>
 			<MovieList list={originalList} landScape={false} />
-			<TrendingCategory />
-			<TopRatedCategory />
-			<ActionMoviesCategory />
-			<ComedyMoviesCategory />
-			<HorrorMoviesCategory />
-			<RomanceMoviesCategory />
-			<DocumentariesCategory />
+			<MovieCategory title='Xu hướng' fetchFn={getTrendingList} />
+			<MovieCategory title='Xếp hạng cao' fetchFn={getTopRatedList} />
+			<MovieCategory title='Hành Động' fetchFn={getActionMoviesList} />
+			<MovieCategory title='Hài' fetchFn={getComedyMoviesList} />
+			<MovieCategory title='Kinh dị' fetchFn={getHorrorMoviesList} />
+			<MovieCategory title='Lãng mạn' fetchFn={getRomanceMoviesList} />
+			<MovieCategory title='Tài liệu' fetchFn={getDocumentariesList} />
 		</>
 	)
 }
-
-// <internal custom hooks> ---------------------------------------
-// bannerInfo is get random from (based on) 'originalList'  
-function useGetBannerInfo(originalList) {
-	let bannerInfo
-	function randomIndex(length) {
-		return Math.floor(Math.random() * length - 1)
-	}
-	// collape to '...' if description is too long
-	function sliceDescription(description) {
-
-		if (description.length > 130)
-			return description.slice(0, 130) + ' ...'
-		else
-			return description
-	}
-	if (originalList.length > 0) {
-		const { backdrop_path = '',
-			name = '',
-			overview = ''
-		} = originalList[randomIndex(originalList.length)]
-
-		const imgUrl = generateImgUrl_Origin(backdrop_path)
-		globleBannerInfo.init(imgUrl, name, overview)
-		const description = sliceDescription(overview)
-
-		bannerInfo = { ...globleBannerInfo, description: description }
-	}
-
-	return {
-		bannerInfo
-	}
-}
-

@@ -1,30 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { generateImgUrl_Origin, generateImgUrl_W500 } from '../../ulti/http';
+import { useScrollToLoadImg } from './hooks/useScrollToLoadImg';
+import { MovieListContext, MovieListProvider } from '../../store/movies-list-context';
 
-import styles from './MovieList.module.css'
 
-export default function MovieList({ list, category, landScape = true }) {
+export default function MovieList({ list, category, landScape = true, movieDetail = true }) {
 
     return (
-        // <div className='w-full bg-main text-white px-10 pt-10 pb-16 overflow-y-clip '>
         <div className={`w-full bg-main text-white pt-10 `}>
             {category && <h4 className='font-semibold text-2xl mb-6 px-10'>{category}</h4>}
             <div className='px-10 pb-16 overflow-y-auto '>
-
                 <div className='flex gap-4 w-max'>
                     {
                         list.map(i => {
-                            return <MovieItem movie={i} isLandscape={landScape} key={i.id} />
+                            return <MoviePoster movie={i} isLandscape={landScape} key={i.id} />
                         })
                     }
                 </div>
             </div>
+            {
+                movieDetail && <MovieDetail />
+            }
         </div>
     );
 }
 
-function MovieItem({ movie, isLandscape }) {
+function MoviePoster({ movie, isLandscape }) {
     const imgSizeClass = isLandscape ?
         'h-36 w-72 object-cover' :
         'h-64 w-44 object-cover'
@@ -38,40 +39,15 @@ function MovieItem({ movie, isLandscape }) {
     )
 }
 
-function useScrollToLoadImg(poster_path) {
-    const imgRef = useRef()
-    const [imgSrc, setImgSrc] = useState(generateImgUrl_W500(poster_path))
-    const [blurClass, setBlurClass] = useState(' blur')
+function MovieDetail() {
+    const [height, setHeight] = useState('0px')
+    const { list, activeItemIndex: i } = useContext(MovieListContext)
+    const movie = list[i]
+    console.log(movie);
 
-    useEffect(() => {
-        const imgRectY = imgRef.current.getBoundingClientRect().top
+    return (
+        <div className={`${height} w-full px-10 pb-16`}>
 
-        isIntersect() && loadImg()
-        window.addEventListener('scroll', event)
-
-
-        // functions
-        function event(e) {
-            isIntersect() && loadImg(event)
-        }
-        function isIntersect() {
-            if (window.scrollY >= imgRectY - (document.documentElement.clientHeight))
-                return true
-            return false
-        }
-        // pass event func reference to loadImg() to removeEventListener
-        function loadImg(event) {
-            setImgSrc(generateImgUrl_Origin(poster_path))
-
-            imgRef.current.addEventListener('load', e => {
-                setBlurClass('')
-            })
-
-            event && window.removeEventListener('scroll', event)
-        }
-    }, [])
-
-    return {
-        imgRef, imgSrc, blurClass
-    }
+        </div>
+    )
 }

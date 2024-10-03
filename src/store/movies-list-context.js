@@ -1,19 +1,23 @@
 import { createContext, useState } from "react";
 
-export const MovieListListContext = createContext({
+export const MovieListContext = createContext({
     list: [],
-    setList() { }
+    setList() { },
+    activeItemIndex: {},
+    setActiveItemIndex() { }
 })
 
 export function MovieListProvider({ children }) {
     const [list, setList] = useState([])
+    const [activeItemIndex, setActiveItemIndex] = useState(0)
 
     const contextVals = {
-        list, setList
+        list, setList,
+        activeItemIndex, setActiveItemIndex
     }
     return (
-        <MovieListListContext.Provider value={contextVals}>
+        <MovieListContext.Provider value={contextVals}>
             {children}
-        </MovieListListContext.Provider>
+        </MovieListContext.Provider>
     )
 }

@@ -2,9 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 
 /**
  * @param {AsyncGeneratorFunction} fetchedFunc 
+ * @param {Object} context - useContext or useState Object
  */
 export function useFetchMovieListWithContext(fetchedFunc, context) {
-    const { list, setList } = useContext(context)
+    const { list, setList } = context
     useEffect(() => {
         (async function () {
             try {
@@ -21,7 +22,6 @@ export function useFetchMovieListWithContext(fetchedFunc, context) {
         list, setList
     }
 }
-
 
 /**
  * @param {AsyncGeneratorFunction} fetchedFunc 
