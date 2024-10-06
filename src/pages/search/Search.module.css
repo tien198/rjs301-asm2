@@ -1,0 +1,34 @@
+.search-form {
+    max-width: 50rem;
+    color: #686666;
+}
+
+.search-form input:focus {
+    outline: solid #47C9EC;
+    transition-duration: 200ms;
+}
+
+.search-form button {
+    padding: .5rem 2rem;
+    border-radius: .25rem;
+}
+
+.search-form button[type='submit'] {
+    background-color: #47C9EC;
+    color: #ffff;
+}
+
+.magnifyingGlass {
+    position: relative;
+    display: inline;
+}
+
+.magnifyingGlass::after {
+    content: url('../../../public/icons/magnifyingGlass.svg');
+    display: block;
+    width: 1.75rem;
+    height: 1.75rem;
+    position: absolute;
+    right: 2rem;
+    bottom: -.25rem;
+}

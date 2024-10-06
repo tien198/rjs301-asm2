@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import Navbar from '../../components/layout/Navbar';
 import Banner from '../../components/layout/Banner';
 import MovieList from '../../components/layout/MovieList';
 import { MovieListContext, MovieListProvider } from '../../store/movies-list-context';
@@ -13,10 +12,8 @@ export default function Browse() {
 
 	return (
 		<>
-			<Navbar />
 			<BannerProvider />
 			<CategoriesGallery />
-			<div className='h-36 bg-main'></div>
 		</>
 	);
 }
