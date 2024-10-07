@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { BannerInfo } from '../../../models/BannerInfo';
 import { generateImgUrl_Origin } from '../../../ulti/http';
 
@@ -7,7 +8,8 @@ const globleBannerInfo = new BannerInfo()
 
 // bannerInfo is get random from (based on) 'originalList'  
 export function useGetBannerInfo(originalList) {
-    let bannerInfo
+    const infor = useRef()
+
     function randomIndex(length) {
         return Math.floor(Math.random() * length - 1)
     }
@@ -19,7 +21,7 @@ export function useGetBannerInfo(originalList) {
         else
             return description
     }
-    if (originalList.length > 0) {
+    if (originalList.length > 0 && !infor.current) {
         const { backdrop_path = '',
             name = '',
             overview = ''
@@ -29,9 +31,9 @@ export function useGetBannerInfo(originalList) {
         globleBannerInfo.init(imgUrl, name, overview)
         const description = sliceDescription(overview)
 
-        bannerInfo = { ...globleBannerInfo, description: description }
+        infor.current = { ...globleBannerInfo, description: description }
     }
-
+    const bannerInfo = infor.current
     return {
         bannerInfo
     }

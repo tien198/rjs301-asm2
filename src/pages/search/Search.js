@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Search.module.css'
-import MovieList from '../../components/layout/MovieComponents';
+// import { MovieListGrid } from '../../components/layout/MovieComponents';
 
 const Search = () => {
 	const [list, setList] = useState([])

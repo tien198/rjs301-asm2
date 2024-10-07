@@ -3,10 +3,8 @@ import React from 'react';
 // css
 import styles from './Banner.module.css'
 
-export default function Banner({ imgSrc, title, description }) {
-    // if (!imgSrc) imgSrc = ''
-    // if (!title) title = ''
-    // if (!description) description = ''
+export default function Banner({ imgSrc = '', title = '', description = '' }) {
+
     return (
         <ImgBackground imgUrl={imgSrc} alt={title} >
             <BannerContents title={title} description={description} />

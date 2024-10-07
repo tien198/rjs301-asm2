@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useScrollToLoadImg } from './hooks/useScrollToLoadImg';
 import { MovieListContext } from '../../store/movies-list-context';
 import { generateYoutubeUrl } from '../../ulti/http';
@@ -10,8 +10,8 @@ export function MovieListRowScroll({ list, category, landScape = true, movieDeta
     return (
         <div className={`w-full bg-main text-white pt-10 `}>
             {category && <h4 className='font-semibold text-2xl mb-6 mx-7'>{category}</h4>}
-            <div className='px-10 pb-16 overflow-auto '>
-                <div className='flex gap-4 w-max'>
+            <div className='px-2 md:px-10 overflow-auto '>
+                <div className='flex gap-4 w-max pb-16'>
                     {
                         list.map((i, index) => {
                             return <MoviePoster movie={i} isLandscape={landScape} key={i.id} index={index} />
@@ -24,21 +24,21 @@ export function MovieListRowScroll({ list, category, landScape = true, movieDeta
     );
 }
 
-// export function MovieListGrid({ }) {
-//     return (
-//         <div className={`w-full bg-main text-white pt-10 `}>
-//             {category && <h4 className='font-semibold text-2xl mb-6 mx-7'>{category}</h4>}
-//                 <div className='grid grid-cols-2 gap-4 w-max px-2 md:px-10 pb-16'>
-//                     {
-//                         list.map((i, index) => {
-//                             return <MoviePoster movie={i} isLandscape={landScape} key={i.id} index={index} />
-//                         })
-//                     }
-//             </div>
-//             {movieDetail && <MovieDetail />}
-//         </div>
-//     )
-// }
+export function MovieListGrid({ list, category, landScape = true, movieDetail = true }) {
+    return (
+        <div className={`w-full bg-main text-white pt-10 `}>
+            {category && <h4 className='font-semibold text-2xl mb-6 mx-7'>{category}</h4>}
+            <div className='grid grid-cols-2 gap-4 w-max px-2 md:px-10 pb-16'>
+                {
+                    list.map((i, index) => {
+                        return <MoviePoster movie={i} isLandscape={landScape} key={i.id} index={index} />
+                    })
+                }
+            </div>
+            {movieDetail && <MovieDetail />}
+        </div>
+    )
+}
 
 function MoviePoster({ movie, isLandscape, index }) {
     const imgSizeClass = isLandscape ?
