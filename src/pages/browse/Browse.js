@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import Banner from '../../components/layout/Banner';
-import { MovieListRowScroll } from '../../components/layout/MovieComponents';
+import { MovieCategory, MovieList, MovieListContainer } from '../../components/layout/MovieComponents';
 import { MovieListContext, MovieListProvider } from '../../store/movies-list-context';
 import { getActionMoviesList, getComedyMoviesList, getDocumentariesList, getHorrorMoviesList, getOriginalList, getRomanceMoviesList, getTopRatedList, getTrendingList } from '../../ulti/http';
 import { useFetchMovieListWithContext } from '../../hooks/useFetchMovieList';
-import { MovieCategory } from '../../components/layout/MovieCategory';
 import { useGetBannerInfo } from '../../components/layout/hooks/useGetBannerInfo';
 
 
@@ -33,7 +32,9 @@ function BannerAndOriginalList() {
 	return (
 		<>
 			<Banner {...bannerInfo} />
-			<MovieListRowScroll list={originalList} landScape={false} movieDetail={false} />
+			<MovieListContainer movieDetail={false} >
+				<MovieList landScape={false} />
+			</MovieListContainer>
 		</>
 	)
 }

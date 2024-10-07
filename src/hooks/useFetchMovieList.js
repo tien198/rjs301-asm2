@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * @param {AsyncGeneratorFunction} fetchedFunc 
@@ -9,8 +9,10 @@ export function useFetchMovieListWithContext(fetchedFunc, context) {
     useEffect(() => {
         (async function () {
             try {
-                const res = (await fetchedFunc())['results']
-                setList(res)
+                if (fetchedFunc) {
+                    const res = (await fetchedFunc())['results']
+                    setList(res)
+                }
             }
             catch (err) {
                 console.warn(err.message)

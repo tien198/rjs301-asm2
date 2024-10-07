@@ -1,41 +1,47 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useScrollToLoadImg } from './hooks/useScrollToLoadImg';
-import { MovieListContext } from '../../store/movies-list-context';
+import { MovieListContext, MovieListProvider } from '../../store/movies-list-context';
 import { generateYoutubeUrl } from '../../ulti/http';
-import Iframe from '../UI/Iframe';
+import { Container, Iframe } from '../UI/UI-Components';
+import { useFetchMovieListWithContext } from '../../hooks/useFetchMovieList';
 
+export function MovieCategory({ title, fetchFn }) {
+    return (
+        <MovieListProvider categoryTitle={title} fetchFn={fetchFn}>
+            <MovieListContainer >
+                <MovieList landScape={true} className='flex gap-4 w-max pb-16' />
+            </MovieListContainer>
+        </MovieListProvider>
+    );
+}
 
-export function MovieListRowScroll({ list, category, landScape = true, movieDetail = true }) {
+export function MovieListContainer({ movieDetail = true, children }) {
+    const { categoryTitle } = useContext(MovieListContext)
 
     return (
         <div className={`w-full bg-main text-white pt-10 `}>
-            {category && <h4 className='font-semibold text-2xl mb-6 mx-7'>{category}</h4>}
-            <div className='px-2 md:px-10 overflow-auto '>
-                <div className='flex gap-4 w-max pb-16'>
-                    {
-                        list.map((i, index) => {
-                            return <MoviePoster movie={i} isLandscape={landScape} key={i.id} index={index} />
-                        })
-                    }
-                </div>
-            </div>
+            {categoryTitle && <h4 className='font-semibold text-2xl mb-6 mx-1 md:mx-7'>{categoryTitle}</h4>}
+            <Container>
+                {children}
+            </Container>
             {movieDetail && <MovieDetail />}
         </div>
     );
 }
 
-export function MovieListGrid({ list, category, landScape = true, movieDetail = true }) {
+export function MovieList({ className, landScape = true }) {
+    className = className ? className : 'flex gap-4 w-max pb-16'
+    const movieListContext = useContext(MovieListContext)
+    const { fetchFn } = movieListContext
+    const { list } = useFetchMovieListWithContext(fetchFn, movieListContext)
+
     return (
-        <div className={`w-full bg-main text-white pt-10 `}>
-            {category && <h4 className='font-semibold text-2xl mb-6 mx-7'>{category}</h4>}
-            <div className='grid grid-cols-2 gap-4 w-max px-2 md:px-10 pb-16'>
-                {
-                    list.map((i, index) => {
-                        return <MoviePoster movie={i} isLandscape={landScape} key={i.id} index={index} />
-                    })
-                }
-            </div>
-            {movieDetail && <MovieDetail />}
+        <div className={className}>
+            {
+                list.map((i, index) => {
+                    return <MoviePoster movie={i} isLandscape={landScape} key={i.id} index={index} />
+                })
+            }
         </div>
     )
 }
@@ -74,8 +80,9 @@ function MoviePoster({ movie, isLandscape, index }) {
 
 function MovieDetail() {
     const { list, activeItemIndex: i, detailHeight } = useContext(MovieListContext)
-    const [youtubeSrc, setYoutubeSrc] = useState('')
     const movie = list[i] || {}
+
+    const [youtubeSrc, setYoutubeSrc] = useState('')
     useEffect(() => {
         const { id = '' } = movie
         async function createYoutubeUrl(id) {
@@ -87,7 +94,8 @@ function MovieDetail() {
     }, [movie])
 
     return (
-        <div className={`h-auto w-full duration-500 overflow-auto grid grid-cols-1 md:grid-cols-2 gap-7`} style={{ height: detailHeight }}>
+        <div className={`h-auto w-full duration-500 overflow-auto grid grid-cols-1 md:grid-cols-2 gap-7`}
+            style={{ height: detailHeight }}>
             <DetailContents movie={movie} />
             <div className='md:my-4 mx-4'>
                 <Iframe src={youtubeSrc} width={'100%'} height={'100%'} />
@@ -100,14 +108,16 @@ function DetailContents({ movie }) {
     const { name = '', title = '', release_date = '', vote_average = '', overview = '' } = movie
 
     return (
-        <div className='mx-10 my-6 flex flex-col gap-5'>
-            <h5 className='font-semibold text-3xl '>{name || title || 'no name'}</h5>
-            <div className='p-px bg-white' />
-            <div>
-                <div className='font-semibold'>Release Date{release_date}</div>
-                <div className='font-semibold'>Vote{vote_average}</div>
+        <Container>
+            <div className='my-6 flex flex-col gap-5'>
+                <h5 className='font-semibold text-3xl '>{name || title || 'no name'}</h5>
+                <div className='p-px bg-white' />
+                <div>
+                    <div className='font-semibold'>Release Date{release_date}</div>
+                    <div className='font-semibold'>Vote{vote_average}</div>
+                </div>
+                <p>{overview}</p>
             </div>
-            <p>{overview}</p>
-        </div>
+        </Container>
     )
 }
