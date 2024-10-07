@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Banner from '../../components/layout/Banner';
-import MovieList from '../../components/layout/MovieList';
+import { MovieListRowScroll } from '../../components/layout/MovieComponents';
 import { MovieListContext, MovieListProvider } from '../../store/movies-list-context';
 import { getActionMoviesList, getComedyMoviesList, getDocumentariesList, getHorrorMoviesList, getOriginalList, getRomanceMoviesList, getTopRatedList, getTrendingList } from '../../ulti/http';
 import { useFetchMovieListWithContext } from '../../hooks/useFetchMovieList';
@@ -33,7 +33,7 @@ function BannerAndOriginalList() {
 	return (
 		<>
 			<Banner {...bannerInfo} />
-			<MovieList list={originalList} landScape={false} movieDetail={false} />
+			<MovieListRowScroll list={originalList} landScape={false} movieDetail={false} />
 		</>
 	)
 }

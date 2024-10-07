@@ -5,12 +5,12 @@ import { generateYoutubeUrl } from '../../ulti/http';
 import Iframe from '../UI/Iframe';
 
 
-export default function MovieList({ list, category, landScape = true, movieDetail = true }) {
+export function MovieListRowScroll({ list, category, landScape = true, movieDetail = true }) {
 
     return (
         <div className={`w-full bg-main text-white pt-10 `}>
             {category && <h4 className='font-semibold text-2xl mb-6 mx-7'>{category}</h4>}
-            <div className='px-10 pb-16 overflow-y-auto '>
+            <div className='px-10 pb-16 overflow-auto '>
                 <div className='flex gap-4 w-max'>
                     {
                         list.map((i, index) => {
@@ -23,6 +23,22 @@ export default function MovieList({ list, category, landScape = true, movieDetai
         </div>
     );
 }
+
+// export function MovieListGrid({ }) {
+//     return (
+//         <div className={`w-full bg-main text-white pt-10 `}>
+//             {category && <h4 className='font-semibold text-2xl mb-6 mx-7'>{category}</h4>}
+//                 <div className='grid grid-cols-2 gap-4 w-max px-2 md:px-10 pb-16'>
+//                     {
+//                         list.map((i, index) => {
+//                             return <MoviePoster movie={i} isLandscape={landScape} key={i.id} index={index} />
+//                         })
+//                     }
+//             </div>
+//             {movieDetail && <MovieDetail />}
+//         </div>
+//     )
+// }
 
 function MoviePoster({ movie, isLandscape, index }) {
     const imgSizeClass = isLandscape ?

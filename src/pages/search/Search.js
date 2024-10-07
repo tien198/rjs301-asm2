@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Search.module.css'
+import MovieList from '../../components/layout/MovieComponents';
 
 const Search = () => {
+	const [list, setList] = useState([])
 	function onSubmit(e) {
 		e.preventDefault()
 	}
@@ -15,7 +17,7 @@ const Search = () => {
 					<button type='button'>Reset</button>
 				</div>
 			</form>
-			<div className='h-screen '></div>
+			{/* <MovieList list={ } category='Search Results' movieDetail={true} /> */}
 		</div>
 	);
 };

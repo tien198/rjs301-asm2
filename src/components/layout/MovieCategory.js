@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import MovieList from './MovieList';
+import { MovieListRowScroll } from './MovieComponents';
 import { useFetchMovieListWithContext } from '../../hooks/useFetchMovieList';
 import { MovieListContext, MovieListProvider } from '../../store/movies-list-context';
 
@@ -15,6 +15,6 @@ export function MovieCategory({ title, fetchFn }) {
 function MovieListConsumer({ title, fetchFn }) {
     const { list } = useFetchMovieListWithContext(fetchFn, useContext(MovieListContext))
     return (
-        <MovieList category={title} list={list} landScape={true} />
+        <MovieListRowScroll category={title} list={list} landScape={true} />
     )
 }
