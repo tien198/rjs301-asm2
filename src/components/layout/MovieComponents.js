@@ -66,7 +66,7 @@ function MoviePoster({ movie, isLandscape, index }) {
         if (index === activeItemIndex && detailHeight !== '0px') {
             hideDetail()
         } else {
-            revealDetail()
+            revealDetail('500px')
             setActiveItemIndex(index)
         }
     }
