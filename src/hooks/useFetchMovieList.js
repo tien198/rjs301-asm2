@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 
 /**
  * @param {AsyncGeneratorFunction} fetchedFunc 
- * @param {Object} context - useContext or useState Object
+ * @param {Object} MovieListContext - useContext or useState Object
  */
-export function useFetchMovieListWithContext(fetchedFunc, context) {
-    const { list, setList } = context
+export function useFetchMovieListWithContext(fetchedFunc, MovieListContext) {
+    const { list, setList } = MovieListContext
     useEffect(() => {
         (async function () {
             try {

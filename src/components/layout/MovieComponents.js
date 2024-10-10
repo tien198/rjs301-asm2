@@ -5,6 +5,33 @@ import { generateYoutubeUrl } from '../../ulti/http';
 import { Container, Iframe } from '../UI/UI-Components';
 import { useFetchMovieListWithContext } from '../../hooks/useFetchMovieList';
 
+export function MovieSearchResults({ title, fetchFn }) {
+    const { list } = useFetchMovieListWithContext(fetchFn, useContext(MovieListContext))
+    useEffect(() => {
+        const clientWidth = document.documentElement.clientWidth
+        if (clientWidth >= 768) {
+
+        }
+        else if (clientWidth >= 1024) {
+
+        }
+        else {
+
+        }
+    }, [])
+    return (
+        <MovieListProvider categoryTitle={title} fetchFn={fetchFn}>
+            {
+                list.forEach(movie => {
+                    <MovieListContainer>
+
+                    </MovieListContainer>
+                })
+            }
+        </MovieListProvider>
+    )
+}
+
 export function MovieCategory({ title, fetchFn }) {
     return (
         <MovieListProvider categoryTitle={title} fetchFn={fetchFn}>
@@ -32,8 +59,8 @@ export function MovieListContainer({ movieDetail = true, children }) {
 export function MovieList({ className, landScape = true }) {
     className = className ? className : 'flex gap-4 w-max pb-16'
     const movieListContext = useContext(MovieListContext)
-    const { fetchFn } = movieListContext
-    const { list } = useFetchMovieListWithContext(fetchFn, movieListContext)
+    const { fetchFn, list } = movieListContext
+    useFetchMovieListWithContext(fetchFn, movieListContext)
 
     return (
         <div className={className}>
@@ -79,19 +106,25 @@ function MoviePoster({ movie, isLandscape, index }) {
 }
 
 function MovieDetail() {
-    const { list, activeItemIndex: i, detailHeight } = useContext(MovieListContext)
+    const { list, activeItemIndex: i, youtubeUrlList, detailHeight } = useContext(MovieListContext)
     const movie = list[i] || {}
 
     const [youtubeSrc, setYoutubeSrc] = useState('')
     useEffect(() => {
-        const { id = '' } = movie
-        async function createYoutubeUrl(id) {
-            const url = await generateYoutubeUrl(id)
-            setYoutubeSrc(url)
+        const urlList = youtubeUrlList.current;
+        if (urlList[i])
+            setYoutubeSrc(urlList[i])
+        else {
+            const { id = '' } = movie
+            async function createYoutubeUrl(id) {
+                const url = await generateYoutubeUrl(id)
+                setYoutubeSrc(url)
+                urlList[i] = url
+            }
+            createYoutubeUrl(id)
         }
-        createYoutubeUrl(id)
 
-    }, [movie])
+    }, [i])
 
     return (
         <div className={`h-auto w-full duration-500 overflow-auto grid grid-cols-1 md:grid-cols-2 gap-7`}
