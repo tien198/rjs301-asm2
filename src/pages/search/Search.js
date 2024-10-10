@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import styles from './Search.module.css'
-// import { MovieListGrid } from '../../components/layout/MovieComponents';
+import { MovieCategory } from '../../components/layout/MovieComponents';
+import { getSearchList } from '../../ulti/http';
 
 const Search = () => {
-	const [list, setList] = useState([])
+	const [query, setQuery] = useState([])
 	function onSubmit(e) {
 		e.preventDefault()
+		getSearchList()
 	}
 	return (
 		<div className='bg-main py-36'>
@@ -17,7 +19,7 @@ const Search = () => {
 					<button type='button'>Reset</button>
 				</div>
 			</form>
-			{/* <MovieList list={ } category='Search Results' movieDetail={true} /> */}
+			<MovieCategory title='Search Result' fetchFn={() => { }} />
 		</div>
 	);
 };
