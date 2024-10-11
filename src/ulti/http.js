@@ -93,11 +93,6 @@ export async function getDocumentariesList() {
     return await getData(url)
 }
 
-export async function getSearchList() {
-    const url = BASE_URL + requestsList.fetchSearch
-    return await getData(url)
-}
-
 export async function getSearchedList(query) {
     const fetchSearch = `/search/movie?query=${query}&api_key=${API_KEY}&language=en-US&page=1`
     const url = BASE_URL + fetchSearch

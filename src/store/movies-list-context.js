@@ -1,15 +1,15 @@
 import { createContext, useRef, useState } from "react";
 
 export const MovieListContext = createContext({
-    categoryTitle: '', fetchFn() { },
+    fetchFn() { },
     list: [], setList() { },
     youtubeUrlList: [],
     activeItemIndex: {}, setActiveItemIndex() { },
     detailHeight: '', revealDetail() { }, hideDetail() { }
 })
 
-export function MovieListProvider({ children, categoryTitle, fetchFn }) {
-    const [list, setList] = useState([])
+export function MovieListProvider({ children, fetchFn, initialList = [] }) {
+    const [list, setList] = useState(initialList)
     const [activeItemIndex, setActiveItemIndex] = useState(0)
     const [detailHeight, setDetailHeight] = useState('0px')
     const youtubeUrlList = useRef([])
@@ -20,7 +20,7 @@ export function MovieListProvider({ children, categoryTitle, fetchFn }) {
         setDetailHeight('0px')
     }
     const contextVals = {
-        categoryTitle, fetchFn,
+        fetchFn,
         list, setList,
         youtubeUrlList,
         activeItemIndex, setActiveItemIndex,

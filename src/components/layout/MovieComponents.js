@@ -5,45 +5,65 @@ import { generateYoutubeUrl } from '../../ulti/http';
 import { Container, Iframe } from '../UI/UI-Components';
 import { useFetchMovieListWithContext } from '../../hooks/useFetchMovieList';
 
-export function MovieSearchResults({ title, fetchFn }) {
-    const { list } = useFetchMovieListWithContext(fetchFn, useContext(MovieListContext))
-    useEffect(() => {
-        const clientWidth = document.documentElement.clientWidth
-        if (clientWidth >= 768) {
+export function MovieSearchResults({ title, list = [] }) {
 
-        }
-        else if (clientWidth >= 1024) {
+    const clientWidth = document.documentElement.clientWidth
+    let groupItemTotal, i = 0
+    if (clientWidth >= 1024) {
+        groupItemTotal = 6
+    }
+    else if (clientWidth >= 768) {
+        groupItemTotal = 4
+    }
+    else {
+        groupItemTotal = 2
+    }
+    const groupList = []
 
-        }
-        else {
+    const groupTotal = Math.ceil(list.length / groupItemTotal)
 
+    for (let grIndex = 0; grIndex < groupTotal; grIndex++) {
+        const itemList = []
+        for (let itemIndex = 0; itemIndex < groupItemTotal; itemIndex++) {
+            itemList.push(list[i++])
         }
-    }, [])
+        groupList.push(itemList)
+    }
+
     return (
-        <MovieListProvider categoryTitle={title} fetchFn={fetchFn}>
-            {
-                list.forEach(movie => {
-                    <MovieListContainer>
+        <MovieListProvider>
+            <MovieListContainer categoryTitle={title} movieDetail={false}>
+                {
+                    groupList.map((li, i) => {
+                        if (li)
+                            return <MovieSearchRow list={li} key={li[0].id} />
+                    })
+                }
+            </MovieListContainer>
+        </MovieListProvider>
+    )
+}
 
-                    </MovieListContainer>
-                })
-            }
+export function MovieSearchRow({ list }) {
+    return (
+        <MovieListProvider initialList={list}>
+            <MovieList landScape={false} />
+            <MovieDetail />
         </MovieListProvider>
     )
 }
 
 export function MovieCategory({ title, fetchFn }) {
     return (
-        <MovieListProvider categoryTitle={title} fetchFn={fetchFn}>
-            <MovieListContainer >
+        <MovieListProvider fetchFn={fetchFn}>
+            <MovieListContainer categoryTitle={title} >
                 <MovieList landScape={true} className='flex gap-4 w-max pb-16' />
             </MovieListContainer>
         </MovieListProvider>
     );
 }
 
-export function MovieListContainer({ movieDetail = true, children }) {
-    const { categoryTitle } = useContext(MovieListContext)
+export function MovieListContainer({ movieDetail = true, categoryTitle, children }) {
 
     return (
         <div className={`w-full bg-main text-white pt-10 `}>
@@ -66,7 +86,8 @@ export function MovieList({ className, landScape = true }) {
         <div className={className}>
             {
                 list.map((i, index) => {
-                    return <MoviePoster movie={i} isLandscape={landScape} key={i.id} index={index} />
+                    if (i)
+                        return <MoviePoster movie={i} isLandscape={landScape} key={i.id} index={index} />
                 })
             }
         </div>
