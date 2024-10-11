@@ -116,6 +116,10 @@ function MoviePoster({ movie, isLandscape, index }) {
         } else {
             revealDetail('500px')
             setActiveItemIndex(index)
+
+            const topRect = imgRef.current.getBoundingClientRect().top + window.scrollY - 80
+            window.scrollTo({ top: topRect, left: 0, behavior: 'smooth' })
+
         }
     }
 
