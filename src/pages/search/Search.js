@@ -22,7 +22,7 @@ const Search = () => {
 		clearInput()
 	}
 	return (
-		<div className='bg-main py-36'>
+		<div className='h-screen bg-main py-36'>
 			<form onSubmit={onSubmit} className={`${styles['search-form']} font-semibold rounded bg-white mx-4 md:mx-auto overflow-hidden`}>
 				<input value={query} onChange={onChangeQuery} className='px-7 py-5 w-full font-semibold bg-transparent relative z-50' placeholder='Find' />
 				<span className={`${styles['magnifyingGlass']}`}></span>

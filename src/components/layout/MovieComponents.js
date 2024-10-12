@@ -63,7 +63,7 @@ export function MovieCategory({ title, fetchFn }) {
     );
 }
 
-export function MovieListContainer({ movieDetail = true, categoryTitle, children }) {
+export function MovieListContainer({ categoryTitle, children }) {
 
     return (
         <div className={`w-full bg-main text-white pt-10 `}>
@@ -71,7 +71,7 @@ export function MovieListContainer({ movieDetail = true, categoryTitle, children
             <Container>
                 {children}
             </Container>
-            {movieDetail && <MovieDetail />}
+            <MovieDetail />
         </div>
     );
 }
@@ -118,7 +118,9 @@ function MoviePoster({ movie, isLandscape, index }) {
             setActiveItemIndex(index)
 
             const topRect = imgRef.current.getBoundingClientRect().top + window.scrollY - 80
-            window.scrollTo({ top: topRect, left: 0, behavior: 'smooth' })
+            setTimeout(() => {
+                window.scrollTo({ top: topRect, left: 0, behavior: 'smooth' })
+            }, 500)
 
         }
     }

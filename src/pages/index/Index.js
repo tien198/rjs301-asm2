@@ -7,7 +7,6 @@ function Index(props) {
         <>
             <Navbar />
             <Outlet />
-            <div className='h-36 bg-main'></div>
         </>
     );
 }

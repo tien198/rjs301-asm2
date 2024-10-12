@@ -32,7 +32,7 @@ function BannerAndOriginalList() {
 	return (
 		<>
 			<Banner {...bannerInfo} />
-			<MovieListContainer movieDetail={false} >
+			<MovieListContainer>
 				<MovieList landScape={false} />
 			</MovieListContainer>
 		</>
