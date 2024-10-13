@@ -26,7 +26,7 @@ khi điền form và enter sẽ trả về danh sách phim tìm được, khi cl
 Khi cuộn xuống đến phần đầu của phần tử (phần tiếp điểm dưới cùng của viewport tiếp xúc với phần đầu của poster phim) thì mới tải ảnh có kích thước thật xuống và bắt sự kiện khi tải ảnh xong sẽ bỏ làm mờ bằng *blur* 
 Cuối cùng hiển thị ra hình ảnh có phân giải tốt nhất
 
-### Ứng dụng đã được triển khai (deploy) trên Vercel
+# Triển khai (deploy) trên Vercel
 
 https://rjs301-asm2.vercel.app/
 
