@@ -28,7 +28,7 @@ Cuối cùng hiển thị ra hình ảnh có phân giải tốt nhất
 
 # Về kỹ thuật
 
-Sử dụng TailwindCSS và CSS module 
+Sử dụng TailwindCSS và CSS module, ứng dụng được responsive design theo mobile-first
 
 Danh mục mà 1 phần tử đc tái sử dụng, phần tử này chứa 1 context, mỗi danh mục khi thực thi thông qua function component sẽ gọi một api khác để lấy về danh sách phim tương ứng cho danh mục đó
 
@@ -43,6 +43,8 @@ Thao tác với DOM lấy giá trị tọa độ phần từ (để *srollTo*)
 ### Tổng hợp các kỹ năng được dùng
 
 `TailwindCSS - CSS module `
+
+`responsive design - mobile first`
 
 `contextAPI, useContext, useState, useRef, useEffect và customHooks `
 
