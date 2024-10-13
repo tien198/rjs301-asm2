@@ -51,6 +51,8 @@ Cuối cùng hiển thị ra hình ảnh có phân giải tốt nhất
 
 `DOM`
 
+`Optimization teachnique`
+
 # Triển khai (deploy) trên Vercel
 
 https://rjs301-asm2.vercel.app/
