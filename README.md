@@ -44,7 +44,7 @@ Thao tác với DOM lấy giá trị tọa độ phần từ (để *srollTo*)
 
 `TailwindCSS - CSS module `
 
-`contextAPI, useContext, useState, useEffect và customHooks `
+`contextAPI, useContext, useState, useRef, useEffect và customHooks `
 
 `Asynchronus`
 
