@@ -41,7 +41,7 @@ Cuối cùng hiển thị ra hình ảnh có phân giải tốt nhất
 
 `TailwindCSS - CSS module `
 
-`responsive design - mobile first`
+`responsive web design - mobile first`
 
 `contextAPI, useContext, useState, useRef, useEffect và customHooks `
 
