@@ -5,7 +5,7 @@ Dự án lấy dữ liệu từ API bên thứ 3 (https://www.themoviedb.org/)
 
 Khi cuộn xuống 100px của Navbar sẽ chuyển nền từ trong suốt (transparent) sang màu đen 
 
-### Trang chủ
+### /Trang chủ
 
 Banner là 1 phim ngẫu nhiên lấy từ danh sách phim đầu tiên
 
@@ -15,7 +15,7 @@ Khi click chọn vào 1 phim bất kỳ sẽ hiển thị phần giới thiệu 
 
 
 
-### Trang tìm kiếm
+### /Trang tìm kiếm
 
 Khi click vào nút tìm kiếm góc phải trên cùng (trên Navbar) sẽ điều hướng sang trang /search
 
@@ -32,8 +32,7 @@ https://rjs301-asm2.vercel.app/
 
 # All needed libraries
 
-\
-npm install react-router-dom 
+\npm install react-router-dom 
 
 npm install -D tailwindcss
 
@@ -49,5 +48,4 @@ npm i --save @fortawesome/free-brands-svg-icons
 
 npm i --save @fortawesome/react-fontawesome@latest  
 
-npm install react-youtube
-\
+npm install react-youtube\
