@@ -9,7 +9,7 @@ Khi cuộn xuống 100px của Navbar sẽ chuyển nền từ trong suốt (tra
 
 Banner là 1 phim ngẫu nhiên lấy từ danh sách phim đầu tiên
 
-Mỗi một danh mục là danh sách phim có thể kéo ngang (overflow auto) để xem tiếp, danh mục mà 1 phần tử đc tái sử dụng, mỗi danh mục khác nhau khi excecute function component sẽ gọi api khác nhau để lấy về danh sách phim tương ứng cho danh mục đó
+Mỗi một danh mục là danh sách phim có thể kéo ngang (overflow auto) để xem tiếp, 
 
 Khi click chọn vào 1 phim bất kỳ sẽ hiển thị phần giới thiệu nội dung và trailer phim, đồng thời cuộn (scroll) phần tử chứa phim lên trên cùng (top), khi click lại phim đó thì ẩn phần tử nội dung phim
 
@@ -25,6 +25,32 @@ khi điền form và enter sẽ trả về danh sách phim tìm được, khi cl
 Để **tối ưu hiệu suất**, phần hình ảnh poster phim sẽ tải hình có phân giải thấp trước và làm mờ ảnh bằng *blur*
 Khi cuộn xuống đến phần đầu của phần tử (phần tiếp điểm dưới cùng của viewport tiếp xúc với phần đầu của poster phim) thì mới tải ảnh có kích thước thật xuống và bắt sự kiện khi tải ảnh xong sẽ bỏ làm mờ bằng *blur* 
 Cuối cùng hiển thị ra hình ảnh có phân giải tốt nhất
+
+# Về kỹ thuật
+
+Sử dụng TailwindCSS và CSS module 
+
+Danh mục mà 1 phần tử đc tái sử dụng, phần tử này chứa 1 context, mỗi danh mục khi thực thi thông qua function component sẽ gọi một api khác để lấy về danh sách phim tương ứng cho danh mục đó
+
+Các hook được sử dụng gồm có contextAPI, useContext, useState, useRef, useEffect, và customHooks 
+
+Lập trình bất đồng bộ (*async*) để fetch dữ liệu từ API về
+
+2-way binding cho form input (trong trang /search)
+
+Thao tác với DOM lấy giá trị tọa độ phần từ (để *srollTo*) 
+
+### Tổng hợp các kỹ năng được dùng
+
+`TailwindCSS - CSS module `
+
+`contextAPI, useContext, useState, useEffect và customHooks `
+
+`Asynchronus`
+
+`2-way binding`
+
+`DOM`
 
 # Triển khai (deploy) trên Vercel
 
