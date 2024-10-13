@@ -45,13 +45,13 @@ Cuối cùng hiển thị ra hình ảnh có phân giải tốt nhất
 
 `contextAPI, useContext, useState, useRef, useEffect và customHooks `
 
-`Asynchronus`
+`Asynchronous`
 
 `2-way binding`
 
 `DOM`
 
-`Optimization teachnique`
+`Optimization technique`
 
 # Triển khai (deploy) trên Vercel
 
