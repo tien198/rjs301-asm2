@@ -13,18 +13,11 @@ Mỗi một danh mục là danh sách phim có thể kéo ngang (overflow auto) 
 
 Khi click chọn vào 1 phim bất kỳ sẽ hiển thị phần giới thiệu nội dung và trailer phim, đồng thời cuộn (scroll) phần tử chứa phim lên trên cùng (top), khi click lại phim đó thì ẩn phần tử nội dung phim
 
-
-
 ### /Trang tìm kiếm
 
 Khi click vào nút tìm kiếm góc phải trên cùng (trên Navbar) sẽ điều hướng sang trang /search
 
 khi điền form và enter sẽ trả về danh sách phim tìm được, khi click chọn phim thì hiển thị giới thiệu nội dung và trailer
-
-
-Để **tối ưu hiệu suất**, phần hình ảnh poster phim sẽ tải hình có phân giải thấp trước và làm mờ ảnh bằng *blur*
-Khi cuộn xuống đến phần đầu của phần tử (phần tiếp điểm dưới cùng của viewport tiếp xúc với phần đầu của poster phim) thì mới tải ảnh có kích thước thật xuống và bắt sự kiện khi tải ảnh xong sẽ bỏ làm mờ bằng *blur* 
-Cuối cùng hiển thị ra hình ảnh có phân giải tốt nhất
 
 # Về kỹ thuật
 
@@ -39,6 +32,10 @@ Lập trình bất đồng bộ (*async*) để fetch dữ liệu từ API về
 2-way binding cho form input (trong trang /search)
 
 Thao tác với DOM lấy giá trị tọa độ phần từ (để *srollTo*) 
+
+Để **tối ưu hiệu suất**, phần hình ảnh poster phim sẽ tải hình có phân giải thấp trước và làm mờ ảnh bằng *blur*
+Khi cuộn xuống đến phần tử poster thì mới tải ảnh có kích thước thật xuống, bắt sự kiện `'load'`, khi tải ảnh xong sẽ bỏ làm mờ bằng *blur* 
+Cuối cùng hiển thị ra hình ảnh có phân giải tốt nhất
 
 ### Tổng hợp các kỹ năng được dùng
 
