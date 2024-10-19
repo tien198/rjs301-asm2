@@ -65,6 +65,7 @@ https://rjs301-asm2.vercel.app/
 `npm install -D tailwindcss`
 
 `npx tailwindcss init`
+visit: https://tailwindcss.com/docs/guides/vite to confige tailwindCSS
 
 `npm i --save @fortawesome/fontawesome-svg-core`
 
